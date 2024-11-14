@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "./CarouselStyles.scss";
+// import useAlert from "../../Hooks/AlertHook";
 // import { useEffect, useState } from "react";
 
 interface CarouselProps {
@@ -43,6 +44,8 @@ const customSettings = {
 };
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
+  // const { setAlert } = useAlert();
+
   return (
     <div className="row-container">
       <>
