@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# Netflix Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Netflix clone built with React and TypeScript, styled with Sass, and powered by the [The Movie Database (TMDB) API](https://www.themoviedb.org/documentation/api). The application features a responsive design, movie carousels, detailed movie information, and smooth navigation.
 
-Currently, two official plugins are available:
+## 🛠️ Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** + **TypeScript**: For building the user interface with type safety.
+- **Sass**: For styling the components using nested CSS and variables.
+- **Axios**: For making HTTP requests to the TMDB API.
+- **React Router DOM**: For managing routes (Home, Detail, and Error pages).
+- **Swiper**: For implementing responsive carousels/sliders.
+- **The Movie Database (TMDB) API**: For fetching movie data.
 
-## Expanding the ESLint configuration
+## 📦 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Home Page**: Displays popular, top-rated, and upcoming movies in responsive carousels.
+- **Detail Page**: Shows detailed information about a selected movie, including the title, description, rating, and more.
+- **Error Page**: Displays a custom 404 error message when a route is not found.
+- **Carousel with Swiper**: Smooth and responsive carousels for movie sections.
+- **API Integration**: Fetches data from the TMDB API using Axios.
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prerequisites
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Ensure you have the following installed:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Node.js** (v18 or higher recommended)
+- **npm** or **yarn**
