@@ -1,33 +1,40 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDetailContext } from "../Hooks/UseDetailHook";
+import { useNavigate } from "react-router-dom";
+import "./Styles/DetailPageStyles.scss";
 
 const DetailPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { details } = useDetailContext();
+  const navigate = useNavigate();
 
-  const movie = {
-    id,
-    title: "Movie Title",
-    description: "This is a detailed description of the movie.",
-    releaseDate: "2023-01-01",
-    rating: 8.5,
-    posterUrl: "https://via.placeholder.com/300x450",
-  };
+  useEffect(() => {
+    console.log("Details updated:", details);
+  }, [details]);
+
+  if (!details) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>{movie.title}</h1>
+    <div style={{ padding: "2rem", paddingTop: "4rem" }}>
+      <h1>{details.title}</h1>
       <img
-        src={movie.posterUrl}
-        alt={movie.title}
+        src={`https://image.tmdb.org/t/p/w300${details.posterPath}`}
+        alt={details.title}
         style={{ width: "300px", height: "450px" }}
       />
       <p>
-        <strong>Release Date:</strong> {movie.releaseDate}
+        <strong>Release Date:</strong> {details.releaseDate}
       </p>
       <p>
-        <strong>Rating:</strong> {movie.rating}
+        <strong>Rating:</strong> {details.rating}
       </p>
-      <p>{movie.description}</p>
+      <p>{details.description}</p>
+
+      <button className="button-play" onClick={() => navigate("/play")}>
+        <span className="arrow"></span>
+        <label className="label">play</label>
+      </button>
     </div>
   );
 };

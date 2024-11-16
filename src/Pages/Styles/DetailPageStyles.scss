@@ -1,0 +1,37 @@
+.button-play {
+  position: relative;
+  transition: all 0.1s ease-in;
+  display: flex;
+  gap: 1.65rem;
+  cursor: pointer;
+  border-radius: 3rem;
+  padding: 1.2rem 3rem;
+  background-color: #3a393b;
+  color: #fff;
+  border: none;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  min-width: 15rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.button-play:hover {
+  background-color: #e50914;
+}
+
+.button-play:active {
+  transform: translateY(0.2rem);
+}
+
+.arrow {
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  border-top: 0.8rem solid transparent;
+  border-bottom: 0.8rem solid transparent;
+  border-left: 1rem solid #fff;
+}

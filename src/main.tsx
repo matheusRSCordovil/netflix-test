@@ -4,12 +4,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import { AlertProvider } from "./Context/AlertContext.tsx";
+import { DetailProvider } from "./Context/DetailContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Router>
       <AlertProvider>
-        <App />
+        <DetailProvider>
+          <App />
+        </DetailProvider>
       </AlertProvider>
     </Router>
   </StrictMode>

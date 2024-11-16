@@ -1,0 +1,111 @@
+.main-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1920px;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+  .main-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.no-shrink {
+  flex-shrink: 0;
+}
+
+.homeicon-element {
+  height: 1.5rem;
+  cursor: pointer;
+  width: 4.5rem;
+}
+
+.responsive-element {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .responsive-element {
+    display: block;
+  }
+}
+
+.home-container {
+  display: flex;
+  align-items: center;
+  margin-left: 2.5rem;
+}
+
+.home-container > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.home-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out 150ms;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.home-button:hover {
+  color: #991b1b; /* hover:text-red-800 */
+}
+
+@media (min-width: 1024px) {
+  .home-button {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+.search-element {
+  display: flex;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding-right: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.search-element:hover {
+  color: #991b1b;
+}

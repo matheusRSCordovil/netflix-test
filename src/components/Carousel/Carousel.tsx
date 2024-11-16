@@ -3,27 +3,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "./CarouselStyles.scss";
-// import useAlert from "../../Hooks/AlertHook";
-// import { useEffect, useState } from "react";
+import useAlert from "../../Hooks/AlertHook";
+import { useEffect, useState } from "react";
+import { API } from "../../services";
+import { useDetailContext } from "../../Hooks/UseDetailHook";
+import { useNavigate } from "react-router-dom";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 interface CarouselProps {
-  images: string[];
+  slideTitle: string;
+  url: string;
+  isTv: boolean;
 }
-
-const slides = Array.from({ length: 20 }).map(
-  (_el, index) => `Slide ${index + 1}`
-);
-
-// useEffect(() => {
-//   const fetchSlides = async () => {
-//     const fetchedSlides = await new Promise<string[]>((resolve) =>
-//       setTimeout(() => resolve(Array.from({ length: 20 }).map((_el, index) => `Slide ${index + 1}`)), 1000)
-//     );
-//     setSlides(fetchedSlides);
-//   };
-
-//   fetchSlides();
-// }, []);
 
 const customSettings = {
   breakpoints: {
@@ -43,13 +34,56 @@ const customSettings = {
   },
 };
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
-  // const { setAlert } = useAlert();
+const Carousel: React.FC<CarouselProps> = ({ slideTitle, url, isTv }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [slides, setSlides] = useState<any[]>([]);
+  const { setAlert } = useAlert();
+  const { setDetails } = useDetailContext();
+  const navigate = useNavigate();
+
+  const handleDetail = (midiaInfo: { id: number }, isTv: boolean) => {
+    API.get(
+      `3/${isTv ? "tv" : "movie"}/${
+        midiaInfo.id
+      }?api_key=${API_KEY}&language=en-US`
+    )
+      .then((response) => {
+        console.log(response.data);
+
+        setDetails({
+          title: response.data.title ?? response.data.original_name,
+          releaseDate:
+            response.data.release_date ?? response.data.first_air_date,
+          rating: response.data.vote_average,
+          description: response.data.overview,
+          posterPath: response.data.poster_path,
+        });
+        navigate("/detail");
+      })
+      .catch((error) => {
+        console.error("Error fetching movie details:", error);
+        setAlert("Failed to fetch movie details", "error");
+      });
+  };
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const response = await API.get(url);
+        setSlides(response.data.results);
+      } catch (error) {
+        console.error("Error fetching slides:", error);
+        setAlert("Failed to fetch slides", "error");
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   return (
     <div className="row-container">
       <>
-        <h1 className="h1-title">Terror</h1>
+        <h1 className="h1-title">{slideTitle}</h1>
         <Swiper
           {...customSettings}
           modules={[Navigation, Pagination]}
@@ -61,26 +95,33 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           onSwiper={(swiper) => console.log(swiper)}
           className="SwiperStyle"
         >
-          {slides.map((slideContent, index) => (
-            <SwiperSlide
-              className="bg-cover"
-              style={{ backgroundSize: "cover" }}
-              key={slideContent}
-              virtualIndex={index}
-              onClick={() => (window.location.href = "/detail")}
-            >
-              <>
-                <img
-                  loading="lazy"
-                  className="tile__img"
-                  src="https://i.ytimg.com/vi/Mwf--eGs05U/maxresdefault.jpg"
-                />
-              </>
-              <div className="pt-2">
-                <h1 className="text-midia-name">Top Gear</h1>
-              </div>
-            </SwiperSlide>
-          ))}
+          {slides &&
+            slides.map((slideContent, index) => (
+              <SwiperSlide
+                className="bg-cover"
+                style={{ backgroundSize: "cover" }}
+                key={slideContent.id}
+                virtualIndex={index}
+                onClick={() => handleDetail(slideContent, isTv)}
+              >
+                <>
+                  <img
+                    loading="lazy"
+                    className="tile__img"
+                    src={
+                      slideContent.backdrop_path
+                        ? `https://image.tmdb.org/t/p/original${slideContent.backdrop_path}`
+                        : "https://i.ytimg.com/vi/Mwf--eGs05U/maxresdefault.jpg"
+                    }
+                  />
+                </>
+                <div className="pt-2">
+                  <h1 className="text-midia-name">
+                    {slideContent.title ?? slideContent.original_name}
+                  </h1>
+                </div>
+              </SwiperSlide>
+            ))}
         </Swiper>
       </>
     </div>
