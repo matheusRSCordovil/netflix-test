@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { API } from "../services";
 import "./Styles/SearchPageStyles.scss";
-import { useNavigate } from "react-router-dom";
-import { useDetailContext } from "../Hooks/UseDetailHook";
-import useAlert from "../Hooks/AlertHook";
+import { useHandleDetail } from "../utils/HandleDetail";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -12,9 +10,7 @@ const MovieSearch: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [movies, setMovies] = useState<any[]>([]); // List of movies
 
-  const { setAlert } = useAlert();
-  const { setDetails } = useDetailContext();
-  const navigate = useNavigate();
+  const handleDetail = useHandleDetail();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -39,31 +35,6 @@ const MovieSearch: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     searchMovies(query);
-  };
-
-  const handleDetail = (midiaInfo: { id: number }, isTv: boolean) => {
-    API.get(
-      `3/${isTv ? "tv" : "movie"}/${
-        midiaInfo.id
-      }?api_key=${API_KEY}&language=en-US`
-    )
-      .then((response) => {
-        console.log(response.data);
-
-        setDetails({
-          title: response.data.title ?? response.data.original_name,
-          releaseDate:
-            response.data.release_date ?? response.data.first_air_date,
-          rating: response.data.vote_average,
-          description: response.data.overview,
-          posterPath: response.data.poster_path,
-        });
-        navigate("/detail");
-      })
-      .catch((error) => {
-        console.error("Error fetching movie details:", error);
-        setAlert("Failed to fetch movie details", "error");
-      });
   };
 
   return (

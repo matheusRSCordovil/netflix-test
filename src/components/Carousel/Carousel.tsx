@@ -6,9 +6,7 @@ import "./CarouselStyles.scss";
 import useAlert from "../../Hooks/AlertHook";
 import { useEffect, useState } from "react";
 import { API } from "../../services";
-import { useDetailContext } from "../../Hooks/UseDetailHook";
-import { useNavigate } from "react-router-dom";
-const API_KEY = import.meta.env.VITE_API_KEY;
+import { useHandleDetail } from "../../utils/HandleDetail";
 
 interface CarouselProps {
   slideTitle: string;
@@ -38,33 +36,7 @@ const Carousel: React.FC<CarouselProps> = ({ slideTitle, url, isTv }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [slides, setSlides] = useState<any[]>([]);
   const { setAlert } = useAlert();
-  const { setDetails } = useDetailContext();
-  const navigate = useNavigate();
-
-  const handleDetail = (midiaInfo: { id: number }, isTv: boolean) => {
-    API.get(
-      `3/${isTv ? "tv" : "movie"}/${
-        midiaInfo.id
-      }?api_key=${API_KEY}&language=en-US`
-    )
-      .then((response) => {
-        console.log(response.data);
-
-        setDetails({
-          title: response.data.title ?? response.data.original_name,
-          releaseDate:
-            response.data.release_date ?? response.data.first_air_date,
-          rating: response.data.vote_average,
-          description: response.data.overview,
-          posterPath: response.data.poster_path,
-        });
-        navigate("/detail");
-      })
-      .catch((error) => {
-        console.error("Error fetching movie details:", error);
-        setAlert("Failed to fetch movie details", "error");
-      });
-  };
+  const handleDetail = useHandleDetail();
 
   useEffect(() => {
     const fetchSlides = async () => {
