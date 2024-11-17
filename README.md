@@ -35,7 +35,7 @@ Ensure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/netflix-clone.git
+git clone https://github.com/matheusRSCordovil/netflix-test.git
 cd netflix-clone
 ```
 
