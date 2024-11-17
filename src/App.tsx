@@ -1,31 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { lazy } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import ErrorPopup from "./components/ErrorPopup/ErrorPopup";
+import Navbar from "./components/TopBar/TopBar";
+import Home from "./Pages/Home";
+import SearchPage from "./Pages/SearchPage";
+import ErrorPage from "./Pages/ErrorPage";
+import DetailPage from "./Pages/DetailPage";
+import PlayPage from "./Pages/PlayPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+      <ErrorPopup />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/play" element={<PlayPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
