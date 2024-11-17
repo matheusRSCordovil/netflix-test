@@ -15,6 +15,8 @@ A Netflix clone built with React and TypeScript, styled with Sass, and powered b
 
 - **Home Page**: Displays popular, top-rated, and upcoming movies in responsive carousels.
 - **Detail Page**: Shows detailed information about a selected movie, including the title, description, rating, and more.
+- **Search Functionality**: Search for movies with dynamic search results.
+- **Video Playback**: Play movie trailers or previews using `react-player`.
 - **Error Page**: Displays a custom 404 error message when a route is not found.
 - **Carousel with Swiper**: Smooth and responsive carousels for movie sections.
 - **API Integration**: Fetches data from the TMDB API using Axios.
@@ -27,3 +29,17 @@ Ensure you have the following installed:
 
 - **Node.js** (v18 or higher recommended)
 - **npm** or **yarn**
+
+## Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/netflix-clone.git
+cd netflix-clone
+```
+
+# TheMovieDB API
+
+VITE_API_KEY: The API key for accessing movie/series data.
+VITE_API_TOKEN: The API token for secure requests.
